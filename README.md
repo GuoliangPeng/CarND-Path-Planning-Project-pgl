@@ -143,3 +143,55 @@ still be compilable with cmake and make./
 ## How to write a README
 A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
 
+---Documemtation for path planning---
+
+###Selected states in the finite state machine.
+
+-Cold Start: 
+  -As long as the vehicle velocity is less than 49.5mph
+   -Add increment of velocity by 0.224 at an inverval of 0.02sec.
+
+-Smooth Path Generation
+  -Use previous endpoint on path if possible, if not, create a previous point by calculation, now we have 2 points so start with.
+  -Use getXY to get the next 3 points at next 30m, 60m and 90m on the Frenet coordinates.
+  -Use the above 5 points to create the spline curve
+  -Calculate the intermediate x points
+  -Get the y points using the spline function
+
+-Vehicle Detection
+  -Use the sensor fusion data.
+
+-Speed control
+  -If distance is less than 30m lower speed
+
+-Lane Change under safe condition 
+  -Check Lanes
+  -Check vehicle distance for sate lane switching
+
+###Explanation of cost/condition implementation.
+
+-Acceleration
+  -If vehicle has safe front distance and velocity is less than 49.5, speed up at rate of 5m/(s^2)
+-Deceleration
+  -If vehicle front distance is less than 30m, lower speed
+-Lane switch
+  -If vehicle in other lanes' s is less than ego car's s, and in between distance is safe, trigger lane switcj
+
+
+###Trajectory generation strategy.
+-Smooth Path Generation
+  -Use previous endpoint on path if possible, if not, create a previous point by calculation, now we have 2 points so start with.
+  -Use getXY to get the next 3 points at next 30m, 60m and 90m on the Frenet coordinates.
+  -Use the above 5 points to create the spline curve
+  -Calculate the intermediate x points
+  -Get the y points using the spline function
+
+###Speed, maximum acceleration, and jerk avoidance strategy.
+
+-Speed
+  -Set reference speed
+-Max Accel
+  -Control speed iterate value(0.224m/s) at 0.02s loop
+-Jerk Avoidance
+  -Max accel control
+  -Create smooth curve to avoid anchor points.
